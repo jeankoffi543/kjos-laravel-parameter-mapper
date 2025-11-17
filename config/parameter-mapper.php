@@ -30,5 +30,8 @@ return [
         To prevent users from directly sending backend (internal) field names that are normally hidden behind the front-end map.
         For example, if you have this map:
     */
-    'reject_knowns' => true,
+    'reject-knowns' => true,
+
+    /** The map_response parameter allows you to automatically map the response data. */
+    'map-response' => true,
 ];

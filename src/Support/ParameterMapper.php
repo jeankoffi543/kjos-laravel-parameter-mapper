@@ -99,4 +99,13 @@ class ParameterMapper
 
         return $mapped;
     }
+
+       public static function reverseOne(string $backendKey): string
+    {
+        $map = config('parameter-mapper.map', []);
+
+        $flip = array_flip($map);
+
+        return $flip[$backendKey] ?? $backendKey;
+    }
 }

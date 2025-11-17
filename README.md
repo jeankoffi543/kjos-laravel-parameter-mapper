@@ -51,7 +51,7 @@ return [
             'sort',
         ],
 
-        'reject_knowns' => true,
+        'reject-knowns' => true,
 ];
 ```
 
@@ -125,8 +125,8 @@ Automatically transformed into:
 ];
 ```
 
-## 🔒 reject_known — Reject internal parameters
-The reject_known parameter allows you to automatically reject any request that contains a parameter corresponding to an internal backend key.
+## 🔒 reject-knowns — Reject internal parameters
+The reject-knowns parameter allows you to automatically reject any request that contains a parameter corresponding to an internal backend key.
 
 Purpose
 
@@ -141,9 +141,9 @@ For example, if you have this map:
 ],
 
 ```
-and reject_known is enabled:
+and reject-knowns is enabled:
 ```php
-'reject_known' => true,
+'reject-knowns' => true,
 ```
 Then a request like:
 
@@ -164,9 +164,25 @@ return [
 ],
 
 // Reject known backend parameters
-'reject_known' => true,
+'reject-knowns' => true,
 ];
 
+```
+
+### Map the response
+
+In the configuration file config/parameter-mapper.php
+```php
+<?php
+
+return [
+'map' => [
+    ...
+],
+
+// Will map the response
+'map-response' => true,
+];
 ```
 
 ## Schema

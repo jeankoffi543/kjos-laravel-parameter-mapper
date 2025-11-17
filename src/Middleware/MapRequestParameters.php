@@ -3,6 +3,7 @@
 namespace Kjos\ParameterMapper\Middleware;
 
 use Closure;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Kjos\ParameterMapper\Support\ParameterMapper;
 
@@ -21,7 +22,7 @@ class MapRequestParameters
      */
     public function handle(Request $request, Closure $next)
     {
-        $rejectKnows = config('parameter-mapper.reject_knowns', true);
+        $rejectKnows = config('parameter-mapper.reject-knowns', true);
         if ($rejectKnows) {
             foreach ($request->query() as $key => $value) {
                 if (in_array($key, $this->internalKeys, true)) {
@@ -58,6 +59,33 @@ class MapRequestParameters
             $request->json()->replace($mapped);
         }
 
-        return $next($request);
+
+        $response = $next($request);
+
+        // ======  MAPPING RÉPONSE (backend → frontend) ======
+        if ($response instanceof JsonResponse && config('parameter-mapper.map-response', true)) {
+            $data = $response->getData(true);     // array
+            $mapped = $this->mapResponseRecursive($data);
+            $response->setData($mapped);
+        }
+
+        return $response;
+    }
+
+    protected function mapResponseRecursive(array $data): array
+    {
+        $mapped = [];
+
+        foreach ($data as $key => $value) {
+            $frontKey = ParameterMapper::reverseOne($key);
+
+            if (is_array($value)) {
+                $mapped[$frontKey] = $this->mapResponseRecursive($value);
+            } else {
+                $mapped[$frontKey] = $value;
+            }
+        }
+
+        return $mapped;
     }
 }
