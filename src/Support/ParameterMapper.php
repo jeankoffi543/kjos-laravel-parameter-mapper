@@ -4,6 +4,12 @@ namespace Kjos\ParameterMapper\Support;
 
 class ParameterMapper
 {
+    /**
+     * Applies the parameter mapping to the given input array.
+     * 
+     * @param array<string, mixed> $input The input array to apply the mapping to.
+     * @return array<string, mixed> The input array with the parameter mapping applied.
+     */
     public static function apply(array $input): array
     {
         $map = config('parameter-mapper.map', []);
@@ -40,5 +46,56 @@ class ParameterMapper
         }
 
         return $input;
+    }
+
+    /**
+     * Inverse the parameter mapping.
+     *
+     * @param array<string, mixed> $input The input parameters to inverse map.
+     *
+     * @return array<string, mixed> The inverse mapped parameters.
+     */
+     public static function reverse(array $input): array
+    {
+        $map = config('parameter-mapper.map', []);
+
+        $valuesToMap = $map['values-to-map'] ?? [];
+        $arrayKeysToMap = $map['array-keys-to-map'] ?? [];
+
+        // Inverser le mapping
+        $inverseMap = [];
+        foreach ($map as $front => $back) {
+            if (is_string($back)) {
+                $inverseMap[$back] = $front;
+            }
+        }
+
+        $mapped = [];
+
+        foreach ($input as $key => $value) {
+            // Inverser clé simple
+            $mappedKey = $inverseMap[$key] ?? $key;
+            $mapped[$mappedKey] = $value;
+
+            // Mapper valeurs pour certains champs (ex: search)
+            foreach ($valuesToMap as $searchField) {
+                if ($key === $searchField && isset($inverseMap[$value])) {
+                    $mapped[$key] = $inverseMap[$value];
+                }
+            }
+
+            // Mapper les clés d'un tableau (ex: sort[user_id] => sort[id_us])
+            foreach ($arrayKeysToMap as $arrayField) {
+                if (is_array($value) && $key === $arrayField) {
+                    $newArr = [];
+                    foreach ($value as $k => $v) {
+                        $newArr[$inverseMap[$k] ?? $k] = $v;
+                    }
+                    $mapped[$key] = $newArr;
+                }
+            }
+        }
+
+        return $mapped;
     }
 }
