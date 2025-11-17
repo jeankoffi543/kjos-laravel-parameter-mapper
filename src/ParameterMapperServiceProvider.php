@@ -1,6 +1,6 @@
 <?php
 
-namespace Kjs\ParameterMapper;
+namespace Kjos\ParameterMapper;
 
 use Illuminate\Support\ServiceProvider;
 use Kjos\ParameterMapper\Middleware\MapRequestParameters;
