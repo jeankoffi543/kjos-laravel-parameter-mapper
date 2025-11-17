@@ -39,6 +39,7 @@ return [
     ],
 ];
 
+
 ## Middleware
 
 use Kjos\ParameterMapper\Middleware\MapRequestParameters;
@@ -94,4 +95,3 @@ it('should store admin', function ($guestAdmin) {
 code: GET /api/admins?search=id_us&sort[id_us]=asc
 Est automatiquement transformé en :
 code: ['search' => 'user_id', 'sort' => ['user_id' => 'asc']]
-
