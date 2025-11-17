@@ -45,12 +45,7 @@ return [
 
 ```php
 use Kjos\ParameterMapper\Middleware\MapRequestParameters;
-use App\Http\Middleware\AuthenticateAdmin;
-
-Route::middleware([MapRequestParameters::class, AuthenticateAdmin::class])
-    ->group(function () {
-        Route::post('/api/admins', [AdminController::class, 'store']);
-    });
+Route::middleware([MapRequestParameters::class])
 ```
 
 ## Classe `ParameterMapper`
@@ -80,19 +75,21 @@ $frontend = ParameterMapper::reverse([
 ## Utilisation dans les Factories
 
 ```php
-it('should store admin', function ($guestAdmin) {
-    $guestAdmin = $guestAdmin->toArray();
-    $guestAdmin = ParameterMapper::reverse($guestAdmin);
-
-    $guestAdmin['image'] = generateUploadedFile();
-    $guestAdmin['password'] = 'password';
-
-    $response = post('/api/admins/admins', $guestAdmin)
-        ->assertCreated();
-
-    Storage::disk('public')->assertExists('admins/' . basename($response['data']['image']));
-})->with('guest admin');
+    $datas = ParameterMapper::reverse([
+      'user_id' => 1,
+      'last_name' => 'Koffi',
+      'age' => 10,
+    ]);
 ```
+Devient:
+```php
+    [
+      'id_ur' => 1,
+      'name_lt' => 'Koffi',
+      'ae' => 10,
+    ]
+```
+
 
 ## Exemple API
 
