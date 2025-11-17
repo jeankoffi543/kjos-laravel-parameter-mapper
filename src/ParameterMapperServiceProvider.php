@@ -9,7 +9,6 @@ class ParameterMapperServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        // Publier un fichier de config
         $this->publishes([
             __DIR__ . '/../config/parameter-mapper.php' => config_path('parameter-mapper.php'),
         ], 'parametermap');
