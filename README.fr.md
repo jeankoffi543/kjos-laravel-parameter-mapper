@@ -152,18 +152,20 @@ project-root/
 ```
 
 
-# 👤 Author
-Maintained by [Jean Koffi](https://www.linkedin.com/in/konan-kan-jean-sylvain-koffi-39970399/)
+# 👤 Auteur
+Maintenu par [Jean Koffi](https://www.linkedin.com/in/konan-kan-jean-sylvain-koffi-39970399/)
 
-# 📄 License
+# 📄 Licence
 MIT © kjos/kjos-laravel-parameter-mapper
 
-# 🤝 Call for contributions
-This project is open to contributions!
-Are you a developer, passionate about Laravel, or interested in multi-tenant architecture?
+# 🤝 Appel à contributions
 
-- Fork the project
+Ce projet est ouvert aux contributions !
 
-- Create a branch (klpm/my-feature)
+Vous êtes développeur, passionné par Laravel ou intéressé par l’architecture multi-tenant ?
 
-- Make a PR 🧪
+- Forkez le projet
+
+- Créez une branche (klpm/my-feature)
+
+- Soumettez une pull request 🧪
