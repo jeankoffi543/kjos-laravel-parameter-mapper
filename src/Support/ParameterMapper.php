@@ -6,7 +6,7 @@ class ParameterMapper
 {
     public static function apply(array $input): array
     {
-        $map = config('parametermap.map', []);
+        $map = config('parameter-mapper.map', []);
 
         foreach ($map as $front => $backend) {
             if (array_key_exists($front, $input)) {
