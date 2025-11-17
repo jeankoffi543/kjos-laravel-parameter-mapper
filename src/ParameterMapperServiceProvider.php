@@ -13,7 +13,6 @@ class ParameterMapperServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/parameter-mapper.php' => config_path('parameter-mapper.php'),
         ], 'parametermap');
-
         $this->app['router']->aliasMiddleware('parametermap', MapRequestParameters::class);
     }
 }
