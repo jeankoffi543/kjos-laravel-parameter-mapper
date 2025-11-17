@@ -129,7 +129,7 @@ Automatically transformed into:
 ```
 
 ## Schema
-![Schema](docs/vers/schema.png)
+![Schema](docs/schema.png)
 
 
 # 📁 Directory Structure
