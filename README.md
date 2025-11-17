@@ -19,6 +19,7 @@ php artisan vendor:publish --tag=parametermap
 ```
 
 ## Configuration
+
 return [
     'map' => [
         // frontParam => backendParam
@@ -39,7 +40,8 @@ return [
 ];
 
 ## Middleware
-php: use Kjos\ParameterMapper\Middleware\MapRequestParameters;
+
+use Kjos\ParameterMapper\Middleware\MapRequestParameters;
 use App\Http\Middleware\AuthenticateAdmin;
 
 Route::middleware([MapRequestParameters::class, AuthenticateAdmin::class])
@@ -50,7 +52,8 @@ Route::middleware([MapRequestParameters::class, AuthenticateAdmin::class])
 ## Classe ParameterMapper
 
 Le package fournit deux méthodes principales :
-php : use Kjos\ParameterMapper\Support\ParameterMapper;
+
+use Kjos\ParameterMapper\Support\ParameterMapper;
 
 // Mapper front -> back
 $mapped = ParameterMapper::apply([
@@ -73,7 +76,8 @@ $frontend = ParameterMapper::reverse([
 ## Utilisation dans les Factories
 
 Vous pouvez utiliser la méthode reverse pour générer des données de test avec des clés frontend :
-php: it('should store admin', function ($guestAdmin) {
+
+it('should store admin', function ($guestAdmin) {
     $guestAdmin = $guestAdmin->toArray();
     $guestAdmin = ParameterMapper::reverse($guestAdmin);
 
