@@ -128,6 +128,50 @@ Automatically transformed into:
 ];
 ```
 
+## 🔒 reject_known — Reject internal parameters
+The reject_known parameter allows you to automatically reject any request that contains a parameter corresponding to an internal backend key.
+
+Purpose
+
+To prevent users from directly sending backend (internal) field names that are normally hidden behind the front-end map.
+
+For example, if you have this map:
+```php
+'map' => [
+'id_ur' => 'user_id',
+'name_lt' => 'last_name',
+'ae' => 'age',
+],
+
+```
+and reject_known is enabled:
+```php
+'reject_known' => true,
+```
+Then a request like:
+
+```GET /api/admins?user_id=1```
+will be rejected with an HTTP 404 error, because user_id is an internal parameter and should not be exposed on the front end.
+
+### Comment to enable it
+
+In the configuration file config/parameter-mapper.php
+```php
+<?php
+
+return [
+'map' => [
+'id_ur' => 'user_id',
+'name_lt' => 'last_name',
+'ae' => 'age',
+],
+
+// Reject known backend parameters
+'reject_known' => true,
+];
+
+```
+
 ## Schema
 ![Schema](docs/schema.png)
 

@@ -16,6 +16,8 @@ return [
         'array-keys-to-map' => [
             'sort',
         ],
+
+        'reject_knowns' => true,
         //add more...
     ],
 ];

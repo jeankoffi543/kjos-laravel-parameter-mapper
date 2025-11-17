@@ -50,6 +50,9 @@ return [
         'array-keys-to-map' => [
             'sort',
         ],
+
+        'reject_knowns' => true,
+        
     ],
 ];
 ```
@@ -118,6 +121,47 @@ Transformée automatiquement en :
 [
     'search' => 'user_id',
     'sort' => ['user_id' => 'asc']
+];
+```
+
+## 🔒 reject_known — Rejeter les paramètres internes
+Le paramètre reject_known permet de rejeter automatiquement toute requête qui contient un paramètre correspondant à une clé backend interne.
+
+Objectif
+
+Empêcher les utilisateurs d’envoyer directement des noms de champs backend (internes) qui sont normalement cachés derrière la map front → back.
+Par exemple, si tu as cette map :
+```php
+'map' => [
+    'id_ur'   => 'user_id',
+    'name_lt' => 'last_name',
+    'ae'      => 'age',
+],
+```
+et que reject_known est activé :
+```php
+'reject_known' => true,
+```
+Alors une requête comme :
+
+```GET /api/admins?user_id=1```
+sera rejetée avec une erreur HTTP 404, car user_id est un paramètre interne et ne doit pas être exposé côté front.
+
+### Comment l’activer
+
+Dans le fichier de configuration config/parameter-mapper.php
+```php
+<?php
+
+return [
+    'map' => [
+        'id_ur'   => 'user_id',
+        'name_lt' => 'last_name',
+        'ae'      => 'age',
+    ],
+
+    // Rejeter les paramètres backend connus
+    'reject_known' => true,
 ];
 ```
 
