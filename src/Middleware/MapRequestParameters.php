@@ -21,7 +21,7 @@ class MapRequestParameters
      */
     public function handle(Request $request, Closure $next)
     {
-        $rejectKnows = config('parameter-mapper.map.reject_knowns', true);
+        $rejectKnows = config('parameter-mapper.reject_knowns', true);
         if ($rejectKnows) {
             foreach ($request->query() as $key => $value) {
                 if (in_array($key, $this->internalKeys, true)) {

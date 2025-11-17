@@ -34,27 +34,24 @@ php artisan vendor:publish --tag=parametermap
 
 ```php
 return [
+    'map' => [
+        // frontParam => backendParam
+        'id_ur'   => 'user_id',
+        'name_lt' => 'last_name',
+        'ae'      => 'age',
+    ],
 
-'map' => [
-// frontParam => backendParam
-'id_ur' => 'user_id',
-'name_lt' => 'last_name',
+    // Valeurs spécifiques à mapper (ex: search=id_us => search=user_id)
+    'values-to-map' => [
+          'search',
+    ],
+    
+    // Mapper les clés dans des tableaux (ex: sort[id_us] => sort[user_id])
+        'array-keys-to-map' => [
+            'sort',
+        ],
 
-'ae' => 'age',
-
-// Specific values ​​to map (e.g., search=id_us => search=user_id)
-
-'values-to-map' => [
-'search',
-
-],
-
-// Map the keys into arrays (e.g., sort[id_us] => sort[user_id])
-
-'array-keys-to-map' => [ 
-'spell', 
-], 
-],
+        'reject_knowns' => true,
 ];
 ```
 

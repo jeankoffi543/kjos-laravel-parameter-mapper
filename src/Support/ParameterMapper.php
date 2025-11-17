@@ -13,8 +13,9 @@ class ParameterMapper
     public static function apply(array $input): array
     {
         $map = config('parameter-mapper.map', []);
-        $valuesToMap = $map['values-to-map'] ?? [];
-        $arrayKeysToMap = $map['array-keys-to-map'] ?? [];
+        $map_ = config('parameter-mapper', []);
+        $valuesToMap = $map_['values-to-map'] ?? [];
+        $arrayKeysToMap = $map_['array-keys-to-map'] ?? [];
 
         // Mapper les clés simples
         foreach ($map as $front => $backend) {
