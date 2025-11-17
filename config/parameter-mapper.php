@@ -13,13 +13,22 @@ return [
     ],
 
 
+    // Valeurs spécifiques à mapper (ex: search=id_us => search=user_id)
     'values-to-map' => [
         'search',
     ],
 
+    // Mapper les clés dans des tableaux (ex: sort[id_us] => sort[user_id])
     'array-keys-to-map' => [
         'sort',
     ],
 
+    /* 
+        The reject_known parameter allows you to automatically reject any request that contains a parameter corresponding to an internal backend key.
+        
+        Purpose:
+        To prevent users from directly sending backend (internal) field names that are normally hidden behind the front-end map.
+        For example, if you have this map:
+    */
     'reject_knowns' => true,
 ];
